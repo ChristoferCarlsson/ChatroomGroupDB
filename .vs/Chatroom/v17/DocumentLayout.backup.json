@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|c:\\users\\theca\\documents\\school\\databaser\\assigment\\chatroomgroupdb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|c:\\users\\theca\\documents\\school\\databaser\\assigment\\chatroomgroupdb\\createaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|solutionrelative:createaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|c:\\users\\theca\\documents\\school\\databaser\\assigment\\chatroomgroupdb\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{556E1603-3034-45CD-8CC0-B24317EA9D3D}|Chatroom.csproj|solutionrelative:userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,13 +38,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\UserDbContext.cs",
+              "RelativeDocumentMoniker": "UserDbContext.cs",
+              "ToolTip": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\UserDbContext.cs",
+              "RelativeToolTip": "UserDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T09:53:19.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CreateAccount.cs",
+              "DocumentMoniker": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\CreateAccount.cs",
+              "RelativeDocumentMoniker": "CreateAccount.cs",
+              "ToolTip": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\CreateAccount.cs",
+              "RelativeToolTip": "CreateAccount.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAACsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T09:11:27.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAswAwAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-27T08:36:33.184Z",
               "EditorCaption": ""
