@@ -888,6 +888,19 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "Spectre.Console/0.49.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Spectre.Console.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Spectre.Console.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -2900,6 +2913,26 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "Spectre.Console/0.49.1": {
+      "sha512": "USV+pdu49OJ3nCjxNuw1K9Zw/c1HCBbwbjXZp0EOn6wM99tFdAtN34KEBZUMyRuJuXlUMDqhd8Yq9obW2MslYA==",
+      "type": "package",
+      "path": "spectre.console/0.49.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Spectre.Console.dll",
+        "lib/net6.0/Spectre.Console.xml",
+        "lib/net7.0/Spectre.Console.dll",
+        "lib/net7.0/Spectre.Console.xml",
+        "lib/net8.0/Spectre.Console.dll",
+        "lib/net8.0/Spectre.Console.xml",
+        "lib/netstandard2.0/Spectre.Console.dll",
+        "lib/netstandard2.0/Spectre.Console.xml",
+        "small-logo.png",
+        "spectre.console.0.49.1.nupkg.sha512",
+        "spectre.console.nuspec"
+      ]
+    },
     "System.ClientModel/1.0.0": {
       "sha512": "I3CVkvxeqFYjIVEP59DnjbeoGNfo/+SZrCLpRz2v/g0gpCHaEMPtWSY0s9k/7jR1rAsLNg2z2u1JRB76tPjnIw==",
       "type": "package",
@@ -4003,23 +4036,24 @@
       "Microsoft.EntityFrameworkCore >= 8.0.11",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.11",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.11",
-      "Microsoft.EntityFrameworkCore.Tools >= 8.0.11"
+      "Microsoft.EntityFrameworkCore.Tools >= 8.0.11",
+      "Spectre.Console >= 0.49.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theca\\.nuget\\packages\\": {}
+    "C:\\Users\\natha\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Chatroom.csproj",
+      "projectUniqueName": "C:\\NET24UTB\\GruppProjekt4\\ChatroomGroupDB\\Chatroom.csproj",
       "projectName": "Chatroom",
-      "projectPath": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Chatroom.csproj",
-      "packagesPath": "C:\\Users\\theca\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\obj\\",
+      "projectPath": "C:\\NET24UTB\\GruppProjekt4\\ChatroomGroupDB\\Chatroom.csproj",
+      "packagesPath": "C:\\Users\\natha\\.nuget\\packages\\",
+      "outputPath": "C:\\NET24UTB\\GruppProjekt4\\ChatroomGroupDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\theca\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\natha\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4070,6 +4104,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.11, )"
+          },
+          "Spectre.Console": {
+            "target": "Package",
+            "version": "[0.49.1, )"
           }
         },
         "imports": [
