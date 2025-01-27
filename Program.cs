@@ -23,6 +23,14 @@ namespace Chatroom
             //    }
             //}
 
+            //using (var db = new UserDbContext())
+            //{
+            //    db.Database.EnsureCreated();
+
+            //    var forgotPassword = new ForgotPassword(db);
+
+            //    forgotPassword.ResetPassword();
+            //}
         }
     }
 

@@ -1,4 +1,4 @@
-
+.vs/
 # User-specific files
 .idea/
 .vscode/
@@ -61,3 +61,4 @@ Thumbs.db
 tmp/
 
 # NPM packages.vs/
+.vs/Chatroom/FileContentIndex/332dd6ee-0a0c-4775-9e82-f122b55a4980.vsidx
