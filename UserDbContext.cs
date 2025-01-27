@@ -15,5 +15,17 @@ namespace Chatroom
         {
             optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=ChatRoomDB;Trusted_Connection=true;TrustServerCertificate=True"); //Connection string to db
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Make sure that no duplicate emails and username exist in DB
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+        }
     }
 }
