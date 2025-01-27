@@ -4007,19 +4007,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theca\\.nuget\\packages\\": {}
+    "C:\\Users\\i\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Chatroom.csproj",
+      "projectUniqueName": "C:\\Users\\i\\Documents\\grupparbete\\ChatroomGroupDB\\Chatroom.csproj",
       "projectName": "Chatroom",
-      "projectPath": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\Chatroom.csproj",
-      "packagesPath": "C:\\Users\\theca\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\theca\\Documents\\School\\Databaser\\Assigment\\ChatroomGroupDB\\obj\\",
+      "projectPath": "C:\\Users\\i\\Documents\\grupparbete\\ChatroomGroupDB\\Chatroom.csproj",
+      "packagesPath": "C:\\Users\\i\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\i\\Documents\\grupparbete\\ChatroomGroupDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\theca\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\i\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
