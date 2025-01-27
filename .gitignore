@@ -1,1 +1,63 @@
-.vs/
+
+# User-specific files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows Installer files
+Thumbs.db
+ehthumbs.db
+
+# Windows Installer generated files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]eploy/
+[Dd]ebug-*_
+[Dd]ist-*_
+[Dd]eploy-*_
+
+# .NET Core build results
+/bin/
+/obj/
+
+# ASP.NET Scaffolding
+Scaffolding/
+
+# User-specific files
+.idea/
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Tye
+.tye/
+
+# .NET tool files
+.dotnet/
+
+# Visual Studio for Mac
+.vscode/
+.idea/
+
+# ASP.NET Core temporary files
+tmp/
+
+# NPM packages.vs/
