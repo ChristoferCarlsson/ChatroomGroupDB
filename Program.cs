@@ -31,6 +31,10 @@ namespace Chatroom
 
             //    forgotPassword.ResetPassword();
             //}
+
+
+            Login login = new Login();
+            login.LoginFunktion();
         }
     }
 
