@@ -11,9 +11,11 @@ namespace Chatroom
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Post> Posts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=ChatRoomDB;Trusted_Connection=true;TrustServerCertificate=True"); //Connection string to db
+            optionsBuilder.UseSqlServer($"Server=(local)\\SQLEXPRESS;Database=ChatRoomDB;Trusted_Connection=true;TrustServerCertificate=True"); //Connection string to db
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

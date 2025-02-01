@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Chatroom
 {
@@ -33,8 +34,11 @@ namespace Chatroom
             //}
 
 
-            Login login = new Login();
-            login.LoginFunktion();
+            //Login login = new Login();
+            //login.LoginFunktion();
+
+            //ChatFunction chatFunction = new ChatFunction();
+            //chatFunction.Chat();
         }
     }
 
