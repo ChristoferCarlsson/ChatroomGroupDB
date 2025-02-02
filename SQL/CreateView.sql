@@ -1,0 +1,27 @@
+-- View 1
+--CREATE VIEW UserPostsOverview AS
+--SELECT 
+--    u.UserId,
+--    u.UserName,
+--    u.Email,
+--    p.PostId,
+--    p.Text AS PostText
+--FROM 
+--    Users u
+--JOIN 
+--    Posts p ON u.UserId = p.UserId;
+
+
+---- View 2
+--CREATE VIEW PostsByUserSummary AS
+--SELECT 
+--    u.UserId,
+--    u.UserName,
+--    u.Email,
+--    COUNT(p.PostId) AS PostCount
+--FROM 
+--    Users u
+--LEFT JOIN 
+--    Posts p ON u.UserId = p.UserId
+--GROUP BY 
+--    u.UserId, u.UserName, u.Email;
