@@ -23,31 +23,39 @@ namespace Chatroom
                 {
                     Console.WriteLine("Please enter your username");
                     var username = Console.ReadLine();
+
                     // Check if the name already exists
                     var existingUserByName = db.Users.FirstOrDefault(u => u.UserName == username);
                     if (existingUserByName == null)
                     {
                         Console.WriteLine("There is no user with this name");
+                        Console.ReadLine();
                         return;
                     }
 
                     Console.WriteLine("Please enter your password");
                     var password = Console.ReadLine();
-
+                    
                     if (existingUserByName.UserPassword != password)
                     {
                         Console.WriteLine("The password is incorrect");
+                        Console.ReadLine();
                         return;
                     }
 
                     Console.WriteLine("You are logged in");
                     loggedin = true;
 
+                    ChatFunction chatFunction = new ChatFunction();
+                    chatFunction.Chat();
+
 
                 }
+                
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.ReadLine();
                 }
             }
         }

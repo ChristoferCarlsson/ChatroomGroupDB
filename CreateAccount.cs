@@ -49,6 +49,9 @@ namespace Chatroom
                     db.SaveChanges();
 
                     Console.WriteLine($"User added successfully: {newUser.UserName}, {newUser.Email}");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press enter to return to the main menu");
+                    Console.ReadLine();
                 }
                 catch (DbUpdateException ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("UNIQUE"))
                 {

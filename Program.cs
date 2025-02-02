@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Chatroom
 {
@@ -33,12 +32,16 @@ namespace Chatroom
             //    forgotPassword.ResetPassword();
             //}
 
-
             //Login login = new Login();
             //login.LoginFunktion();
 
-            //ChatFunction chatFunction = new ChatFunction();
-            //chatFunction.Chat();
+            //UserInterface userInterface = new UserInterface();  
+            //userInterface.LoginOrCreateAccountMenu();
+
+            UserInterface userInterface = new UserInterface();
+            userInterface.LoginOrCreateAccountMenu();
+
+
         }
     }
 

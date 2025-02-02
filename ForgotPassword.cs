@@ -64,16 +64,26 @@ public class ForgotPassword
                             _db.SaveChanges();
 
                             Console.WriteLine($"Password has been reset. New password: {newPassword}");
+                            Console.WriteLine();
+                            Console.WriteLine("Press enter to return to the main menu");
+                            Console.ReadLine();
                         }
                         else
                         {
                             Console.WriteLine("User not found with the provided email.");
+                            Console.WriteLine();
+                            Console.WriteLine("Press enter to return to the main menu");
+                            Console.ReadLine();
                         }
                     }
                     else if (options[selectedIndex] == "No")
                     {
                         Console.Clear();
                         Console.WriteLine("Password reset canceled.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press enter to return to the main menu");
+                        Console.ReadLine();
+
                     }
                     return; // Avsluta menyn
             }
