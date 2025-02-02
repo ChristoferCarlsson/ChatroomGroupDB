@@ -6,116 +6,115 @@ using System.Linq;
 
 public class ForgotPassword
 {
-    private UserDbContext _db;
-    public ForgotPassword(UserDbContext db)
-    {
-        _db = db;
-    }
-
     public void ResetPassword()
     {
-        Console.WriteLine("\nWould you like to reset a password?");
 
-        string[] options = { "Yes", "No" };
-        int selectedIndex = 0;
-
-        while (true)
+        using (var db = new UserDbContext())
         {
-            Console.Clear();
-            Console.WriteLine("Would you like to reset a password?");
-            for (int i = 0; i < options.Length; i++)
-            {
-                if (i == selectedIndex)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"> {options[i]}");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"  {options[i]}");
-                }
-            }
+            Console.WriteLine("\nWould you like to reset a password?");
 
-            ConsoleKey key = Console.ReadKey(true).Key;
+            string[] options = { "Yes", "No" };
+            int selectedIndex = 0;
 
-            switch (key)
+            while (true)
             {
-                case ConsoleKey.UpArrow:
-                    selectedIndex = (selectedIndex - 1 + options.Length) % options.Length;
-                    break;
-                case ConsoleKey.DownArrow:
-                    selectedIndex = (selectedIndex + 1) % options.Length;
-                    break;
-                case ConsoleKey.Enter:
-                    if (options[selectedIndex] == "Yes")
+                Console.Clear();
+                Console.WriteLine("Would you like to reset a password?");
+                for (int i = 0; i < options.Length; i++)
+                {
+                    if (i == selectedIndex)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Enter the email of the user:");
-                        string userEmail = Console.ReadLine()?.Trim();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"> {options[i]}");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"  {options[i]}");
+                    }
+                }
 
-                        // Kontrollera om användaren finns
-                        var users = _db.Users
-                            .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users")
-                            .AsEnumerable()
-                            .FirstOrDefault();
+                ConsoleKey key = Console.ReadKey(true).Key;
 
-                        var user = _db.Users
-                            .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users WHERE Email = {0}", userEmail)
-                            .AsEnumerable()
-                            .FirstOrDefault();
-
-                        if (user != null)
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        selectedIndex = (selectedIndex - 1 + options.Length) % options.Length;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        selectedIndex = (selectedIndex + 1) % options.Length;
+                        break;
+                    case ConsoleKey.Enter:
+                        if (options[selectedIndex] == "Yes")
                         {
-                            // Generate a new password
-                            string newPassword = GenerateSimplePassword();
+                            Console.Clear();
+                            Console.WriteLine("Enter the email of the user:");
+                            string userEmail = Console.ReadLine()?.Trim();
 
-                            // Convert the new password string to a byte array using UTF8 encoding
-                            byte[] newPasswordBytes = System.Text.Encoding.UTF8.GetBytes(newPassword);
+                            // Kontrollera om användaren finns
+                            var users = db.Users
+                                .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users")
+                                .AsEnumerable()
+                                .FirstOrDefault();
 
-                            // Construct the SQL query for updating the user's password
-                            string sql = @"
-                                UPDATE Users 
-                                SET UserPassword = ENCRYPTBYPASSPHRASE(@encryptionKey, @newPassword) 
-                                WHERE UserId = @userId";
+                            var user = db.Users
+                                .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users WHERE Email = {0}", userEmail)
+                                .AsEnumerable()
+                                .FirstOrDefault();
 
-                            // Execute the SQL query with parameters
-                            _db.Database.ExecuteSqlRaw(sql,
-                                new SqlParameter("@encryptionKey", "MySecretKey"),  // Make sure you use the correct encryption key
-                                new SqlParameter("@newPassword", newPasswordBytes), // Pass the byte array here
-                                new SqlParameter("@userId", user.UserId)  // Use the correct UserId of the user you're updating
-                            );
+                            if (user != null)
+                            {
+                                // Generate a new password
+                                string newPassword = GenerateSimplePassword();
 
-                            // Save changes to the database
-                            _db.SaveChanges();
+                                // Convert the new password string to a byte array using UTF8 encoding
+                                byte[] newPasswordBytes = System.Text.Encoding.UTF8.GetBytes(newPassword);
 
-                            Console.WriteLine("User's password updated successfully.");
-                            Console.WriteLine($"Password has been reset. New password: {newPassword}");
+                                // Construct the SQL query for updating the user's password
+                                string sql = @"
+                                    UPDATE Users 
+                                    SET UserPassword = ENCRYPTBYPASSPHRASE(@encryptionKey, @newPassword) 
+                                    WHERE UserId = @userId";
+
+                                // Execute the SQL query with parameters
+                                db.Database.ExecuteSqlRaw(sql,
+                                    new SqlParameter("@encryptionKey", "MySecretKey"),  // Make sure you use the correct encryption key
+                                    new SqlParameter("@newPassword", newPasswordBytes), // Pass the byte array here
+                                    new SqlParameter("@userId", user.UserId)  // Use the correct UserId of the user you're updating
+                                );
+
+                                // Save changes to the database
+                                db.SaveChanges();
+
+                                Console.WriteLine("User's password updated successfully.");
+                                Console.WriteLine($"Password has been reset. New password: {newPassword}");
+                                Console.WriteLine();
+                                Console.WriteLine("Press enter to return to the main menu");
+                                Console.ReadLine();
+                            }
+                            else
+                            {
+
+                                Console.WriteLine("User not found with the provided email.");
+                                Console.WriteLine();
+                                Console.WriteLine("Press enter to return to the main menu");
+                                Console.ReadLine();
+                            }
+
+                        }
+                        else if (options[selectedIndex] == "No")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Password reset canceled.");
                             Console.WriteLine();
                             Console.WriteLine("Press enter to return to the main menu");
                             Console.ReadLine();
+
                         }
-                        else
-                        {
-
-                            Console.WriteLine("User not found with the provided email.");
-                            Console.WriteLine();
-                            Console.WriteLine("Press enter to return to the main menu");
-                            Console.ReadLine();
-                        }
-
-                    }
-                    else if (options[selectedIndex] == "No")
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Password reset canceled.");
-                        Console.WriteLine();
-                        Console.WriteLine("Press enter to return to the main menu");
-                        Console.ReadLine();
-
-                    }
-                    return; // Avsluta menyn
+                        return; // Avsluta menyn
+                }
             }
+
         }
     }
 

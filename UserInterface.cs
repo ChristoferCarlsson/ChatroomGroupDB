@@ -10,11 +10,11 @@ namespace Chatroom
     {
         public void LoginOrCreateAccountMenu() 
         {
-           
 
             string[] options = { "Login", "Forgot password", "Create account", "Exit" };
             int selectedIndex = 0;
 
+            //We start a loop that keeps the program running
             while (true)
             {
                 Console.Clear();
@@ -37,6 +37,7 @@ namespace Chatroom
 
                 ConsoleKey key = Console.ReadKey(true).Key;
 
+                //We add a switch where the user can choose what to do
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
@@ -56,16 +57,9 @@ namespace Chatroom
                         }
                         else if (options[selectedIndex] == "Forgot password")
                         {
-                            //kolla om det fungerar
                             Console.Clear();
-                            using (var db = new UserDbContext())
-                            {
-                                db.Database.EnsureCreated();
-
-                                var forgotPassword = new ForgotPassword(db);
-
-                                forgotPassword.ResetPassword();
-                            }
+                            var forgotPassword = new ForgotPassword();
+                            forgotPassword.ResetPassword();
                             continue;
                            
                         }
@@ -79,6 +73,7 @@ namespace Chatroom
                         else if (options[selectedIndex] == "Exit")
                         {
                             Console.Clear();
+                            return;
                         }
                         return; 
 

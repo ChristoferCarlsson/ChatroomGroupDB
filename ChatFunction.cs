@@ -10,7 +10,7 @@ namespace Chatroom
     public class ChatFunction
     {
         bool chatting = false;
-        public void Chat()
+        public void Chat(int userId)
         {
             //We let the user know that the messages are loading 
             Console.Write("Loading posts...");
@@ -23,7 +23,7 @@ namespace Chatroom
             //We create a loop
             while (chatting)
             {
-                if (Post() == true)
+                if (Post(userId) == true)
                 {
                     chatting = false;
                     break;
@@ -56,7 +56,7 @@ namespace Chatroom
             }
         }
 
-        public bool Post()
+        public bool Post(int userId)
         {
             using (var db = new UserDbContext())
             {
@@ -69,6 +69,7 @@ namespace Chatroom
 
                     var message = Console.ReadLine();
 
+                    //We make sure that the user can log out
                     if (message == "log me out") return true;
 
                     //Clear the written line
@@ -76,7 +77,7 @@ namespace Chatroom
                     ClearCurrentConsoleLine();
 
                     // Add the new post
-                    var newPost = new Post { PostId = posts.Count() + 1, Text = message, UserId = 1 };
+                    var newPost = new Post { PostId = posts.Count() + 1, Text = message, UserId = userId };
                     db.Posts.Add(newPost);
                     db.SaveChanges();
 

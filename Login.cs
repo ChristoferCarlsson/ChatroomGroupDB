@@ -30,6 +30,9 @@ namespace Chatroom
                     if (existingUserByName == null)
                     {
                         Console.WriteLine("There is no user with this name");
+                        Console.WriteLine("");
+                        Console.WriteLine("Press enter to return to the main menu");
+                        Console.ReadLine();
                         return;
                     }
 
@@ -40,6 +43,8 @@ namespace Chatroom
                     if (existingUserByName.UserPassword != password)
                     {
                         Console.WriteLine("The password is incorrect");
+                        Console.WriteLine("");
+                        Console.WriteLine("Press enter to return to the main menu");
                         Console.ReadLine();
                         return;
                     }
@@ -48,16 +53,18 @@ namespace Chatroom
                     loggedin = true;
 
                     ChatFunction chatFunction = new ChatFunction();
-                    chatFunction.Chat();
+                    chatFunction.Chat(existingUserByName.UserId);
 
                 }
                 
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press enter to return to the main menu");
                     Console.ReadLine();
                 }
-                return false;
+                return;
             }
         }
     }
