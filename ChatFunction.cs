@@ -23,7 +23,6 @@ namespace Chatroom
             //We create a loop
             while (chatting)
             {
-                if (Post(userId) == true)
                 {
                     chatting = false;
                     break;
@@ -70,7 +69,7 @@ namespace Chatroom
                     var message = Console.ReadLine();
 
                     //We make sure that the user can log out
-                    if (message == "log me out") return true;
+                    if (message == "log me out") return false;
 
                     //Clear the written line
                     Console.SetCursorPosition(0, Console.CursorTop - 1);
