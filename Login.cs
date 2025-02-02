@@ -1,54 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chatroom
 {
     public class Login
     {
-        public void LoginFunktion()
+        public bool LoginFunktion()
         {
-
             bool loggedin = false;
             // Entity Framework Core
             using (var db = new UserDbContext())
             {
-                //Ensure that database is created
+                // Ensure that the database is created
                 db.Database.EnsureCreated();
-                var users = db.Users.ToList();
 
                 try
                 {
                     Console.WriteLine("Please enter your username");
                     var username = Console.ReadLine();
-                    // Check if the name already exists
-                    var existingUserByName = db.Users.FirstOrDefault(u => u.UserName == username);
+
+                    // Check if the user exists and directly decrypt the password in the query
+                    var existingUserByName = db.Users
+                        .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users WHERE UserName = {0}", username)
+                        .AsEnumerable()
+                        .FirstOrDefault();
+
                     if (existingUserByName == null)
                     {
                         Console.WriteLine("There is no user with this name");
-                        return;
+                        return false;
                     }
 
                     Console.WriteLine("Please enter your password");
                     var password = Console.ReadLine();
 
+                    // The decrypted password is now a string in existingUserByName.UserPassword
                     if (existingUserByName.UserPassword != password)
                     {
                         Console.WriteLine("The password is incorrect");
-                        return;
+                        return false;
                     }
 
                     Console.WriteLine("You are logged in");
                     loggedin = true;
-
-
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
                 }
+                return false;
             }
         }
     }
