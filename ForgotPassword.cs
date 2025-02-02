@@ -91,10 +91,17 @@ public class ForgotPassword
 
                             Console.WriteLine("User's password updated successfully.");
                             Console.WriteLine($"Password has been reset. New password: {newPassword}");
+                            Console.WriteLine();
+                            Console.WriteLine("Press enter to return to the main menu");
+                            Console.ReadLine();
                         }
                         else
                         {
-                            Console.WriteLine("No user found with that email.");
+
+                            Console.WriteLine("User not found with the provided email.");
+                            Console.WriteLine();
+                            Console.WriteLine("Press enter to return to the main menu");
+                            Console.ReadLine();
                         }
 
                     }
@@ -102,6 +109,10 @@ public class ForgotPassword
                     {
                         Console.Clear();
                         Console.WriteLine("Password reset canceled.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press enter to return to the main menu");
+                        Console.ReadLine();
+
                     }
                     return; // Avsluta menyn
             }

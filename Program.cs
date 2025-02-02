@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Chatroom
 {
@@ -20,12 +19,14 @@ namespace Chatroom
             //CreateAccount createAccount = new CreateAccount();
             //createAccount.CreateUser();
 
-            Login login = new Login();
-            login.LoginFunktion();
-
             //ChatFunction chatFunction = new ChatFunction();
             //chatFunction.Chat();
+  
+            //Login login = new Login();
+            //login.LoginFunktion();
 
+            UserInterface userInterface = new UserInterface();
+            userInterface.LoginOrCreateAccountMenu();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Chatroom
 {
     public class Login
     {
-        public bool LoginFunktion()
+        public void LoginFunktion()
         {
             bool loggedin = false;
             // Entity Framework Core
@@ -20,6 +20,7 @@ namespace Chatroom
                     Console.WriteLine("Please enter your username");
                     var username = Console.ReadLine();
 
+
                     // Check if the user exists and directly decrypt the password in the query
                     var existingUserByName = db.Users
                         .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users WHERE UserName = {0}", username)
@@ -29,7 +30,7 @@ namespace Chatroom
                     if (existingUserByName == null)
                     {
                         Console.WriteLine("There is no user with this name");
-                        return false;
+                        return;
                     }
 
                     Console.WriteLine("Please enter your password");
@@ -39,16 +40,22 @@ namespace Chatroom
                     if (existingUserByName.UserPassword != password)
                     {
                         Console.WriteLine("The password is incorrect");
-                        return false;
+                        Console.ReadLine();
+                        return;
                     }
 
                     Console.WriteLine("You are logged in");
                     loggedin = true;
-                    return true;
+
+                    ChatFunction chatFunction = new ChatFunction();
+                    chatFunction.Chat();
+
                 }
+                
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.ReadLine();
                 }
                 return false;
             }

@@ -61,6 +61,9 @@ namespace Chatroom
                     db.Database.ExecuteSqlRaw(sql, nextUserId, username, encryptionKey, passwordBytes, email);
 
                     Console.WriteLine("User added successfully with encrypted password.");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press enter to return to the main menu");
+                    Console.ReadLine();
                 }
                 catch (DbUpdateException ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("UNIQUE"))
                 {
