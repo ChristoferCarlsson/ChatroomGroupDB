@@ -17,20 +17,22 @@ namespace Chatroom
             {
                 //Ensure that database is created
                 db.Database.EnsureCreated();
-                var users = db.Users
-                    .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users")
-                    .AsEnumerable()
-                    .FirstOrDefault();
 
                 try
                 {
                     Console.WriteLine("Please enter your username");
                     var username = Console.ReadLine();
-                    // Check if the name already exists
-                    var existingUserByName = db.Users.FirstOrDefault(u => u.UserName == username);
+                    // Check if the username already exists
+                    var existingUserByName = db.Users
+                        .Where(u => u.UserName == username)
+                        .Select(u => new { u.UserId, u.UserName, u.Email }) // Only select relevant fields
+                        .FirstOrDefault();
                     if (existingUserByName != null)
                     {
-                        Console.WriteLine("A user with this name already exists.");
+                        Console.WriteLine("A user with this username already exists");
+                        Console.WriteLine("");
+                        Console.WriteLine("Press enter to return to the main menu");
+                        Console.ReadLine();
                         return;
                     }
 
@@ -40,10 +42,17 @@ namespace Chatroom
                     Console.WriteLine("Please enter your email");
                     var email = Console.ReadLine();
                     // Check if the email already exists
-                    var existingUserByEmail = db.Users.FirstOrDefault(u => u.Email == email);
+                    var existingUserByEmail = db.Users
+                        .Where(u => u.Email == email)
+                        .Select(u => new { u.UserId, u.UserName, u.Email }) // Only select relevant fields
+                        .FirstOrDefault();
+
                     if (existingUserByEmail != null)
                     {
                         Console.WriteLine("A user with this email already exists.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Press enter to return to the main menu");
+                        Console.ReadLine();
                         return;
                     }
 
@@ -65,13 +74,13 @@ namespace Chatroom
                     Console.WriteLine("Press enter to return to the main menu");
                     Console.ReadLine();
                 }
-                catch (DbUpdateException ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("UNIQUE"))
-                {
-                    Console.WriteLine("A user with this name or email already exists. Please try again.");
-                }
+
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press enter to return to the main menu");
+                    Console.ReadLine();
                 }
             }
         }
