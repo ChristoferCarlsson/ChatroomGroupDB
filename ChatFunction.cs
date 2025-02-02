@@ -21,9 +21,10 @@ namespace Chatroom
             Console.WriteLine($"");
 
             //We create a loop
-            while (chatting) 
-            { 
-                if (Post() == true) {
+            while (chatting)
+            {
+                if (Post() == true)
+                {
                     chatting = false;
                     break;
                 };
@@ -32,7 +33,7 @@ namespace Chatroom
 
         public void ReadPosts()
         {
-            using (var context = new UserDbContext()) 
+            using (var context = new UserDbContext())
             {
                 //We combine posts with users so that we can see the username 
                 var posts = context.Posts

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,10 @@ namespace Chatroom
             {
                 //Ensure that database is created
                 db.Database.EnsureCreated();
-                var users = db.Users.ToList();
+                var users = db.Users
+                    .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users")
+                    .AsEnumerable()
+                    .FirstOrDefault();
 
                 try
                 {
@@ -43,12 +47,20 @@ namespace Chatroom
                         return;
                     }
 
-                    // Add the new user
-                    var newUser = new User { UserId = users.Count() + 1, UserName = username, UserPassword = password, Email = email };
-                    db.Users.Add(newUser);
-                    db.SaveChanges();
+                    string encryptionKey = "MySecretKey";  // Encryption key
+                    int nextUserId = (db.Users.Max(u => (int?)u.UserId) ?? 0) + 1;
 
-                    Console.WriteLine($"User added successfully: {newUser.UserName}, {newUser.Email}");
+                    // Convert the password string to a byte array using UTF8 encoding
+                    byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+
+                    // SQL with ENCRYPTBYPASSPHRASE expecting a byte array for encryption
+                    string sql = @"
+                        INSERT INTO Users (UserId, UserName, UserPassword, Email)
+                        VALUES (@p0, @p1, ENCRYPTBYPASSPHRASE(@p2, @p3), @p4)";
+
+                    db.Database.ExecuteSqlRaw(sql, nextUserId, username, encryptionKey, passwordBytes, email);
+
+                    Console.WriteLine("User added successfully with encrypted password.");
                     Console.WriteLine("");
                     Console.WriteLine("Press enter to return to the main menu");
                     Console.ReadLine();

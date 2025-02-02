@@ -1,4 +1,6 @@
 ﻿using Chatroom;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -53,16 +55,41 @@ public class ForgotPassword
                         string userEmail = Console.ReadLine()?.Trim();
 
                         // Kontrollera om användaren finns
-                        var user = _db.Users.FirstOrDefault(u => u.Email == userEmail);
+                        var users = _db.Users
+                            .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users")
+                            .AsEnumerable()
+                            .FirstOrDefault();
+
+                        var user = _db.Users
+                            .FromSqlRaw("SELECT UserId, UserName, CONVERT(VARCHAR, DECRYPTBYPASSPHRASE('MySecretKey', UserPassword)) AS UserPassword, Email FROM Users WHERE Email = {0}", userEmail)
+                            .AsEnumerable()
+                            .FirstOrDefault();
+
                         if (user != null)
                         {
-                            // Generera ett nytt enkelt lösenord
+                            // Generate a new password
                             string newPassword = GenerateSimplePassword();
-                            user.UserPassword = newPassword;
 
-                            // Uppdatera databasen
+                            // Convert the new password string to a byte array using UTF8 encoding
+                            byte[] newPasswordBytes = System.Text.Encoding.UTF8.GetBytes(newPassword);
+
+                            // Construct the SQL query for updating the user's password
+                            string sql = @"
+                                UPDATE Users 
+                                SET UserPassword = ENCRYPTBYPASSPHRASE(@encryptionKey, @newPassword) 
+                                WHERE UserId = @userId";
+
+                            // Execute the SQL query with parameters
+                            _db.Database.ExecuteSqlRaw(sql,
+                                new SqlParameter("@encryptionKey", "MySecretKey"),  // Make sure you use the correct encryption key
+                                new SqlParameter("@newPassword", newPasswordBytes), // Pass the byte array here
+                                new SqlParameter("@userId", user.UserId)  // Use the correct UserId of the user you're updating
+                            );
+
+                            // Save changes to the database
                             _db.SaveChanges();
 
+                            Console.WriteLine("User's password updated successfully.");
                             Console.WriteLine($"Password has been reset. New password: {newPassword}");
                             Console.WriteLine();
                             Console.WriteLine("Press enter to return to the main menu");
@@ -70,11 +97,13 @@ public class ForgotPassword
                         }
                         else
                         {
+
                             Console.WriteLine("User not found with the provided email.");
                             Console.WriteLine();
                             Console.WriteLine("Press enter to return to the main menu");
                             Console.ReadLine();
                         }
+
                     }
                     else if (options[selectedIndex] == "No")
                     {
