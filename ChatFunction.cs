@@ -23,6 +23,7 @@ namespace Chatroom
             //We create a loop
             while (chatting)
             {
+                if (Post(userId) == false)
                 {
                     chatting = false;
                     break;
